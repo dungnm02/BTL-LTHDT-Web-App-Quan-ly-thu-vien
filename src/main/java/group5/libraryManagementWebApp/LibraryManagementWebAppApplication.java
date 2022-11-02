@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LibraryManagementWebAppApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LibraryManagementWebAppApplication.class, args);
-	}
-//asdadas
+    public static void main(String[] args) {
+        SpringApplication.run(LibraryManagementWebAppApplication.class, args);
+    }
 }
