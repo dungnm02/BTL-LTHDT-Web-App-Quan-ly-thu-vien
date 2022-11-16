@@ -17,10 +17,44 @@
         <ul>
             <li><a href="/admin/index">Trang chủ</a></li>
             <li><a href="/admin/books">Các đầu sách</a></li>
-            <li><a href="/admin/orders">Các đơn mượn</a></li>
+            <li><a href="/admin/loans">Các đơn mượn</a></li>
             <li><a href="/admin/add_book">Thêm đầu sách</a></li>
         </ul>
     </nav>
+
+    <h1>Các đầu sách</h1>
+    <table>
+        <tr>
+            <td>Mã đầu sách</td>
+            <td>Tên sách</td>
+            <td>Tên tác giả</td>
+            <td>Thể loại</td>
+            <td>Năm phát hành</td>
+            <td></td>
+        </tr>
+
+        <div th:if="${message != null}">
+            <p th:text="${message}"></p>
+        </div>
+
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.authorName}"></td>
+            <td th:text="${book.category}"></td>
+            <td th:text="${book.publishedYear}"></td>
+            <td>
+                <a href="/admin/books/edit">
+                    <button>Chỉnh sửa</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{|/admin/delete/${book.id}|}">
+                    <button>Xóa</button>
+                </a>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>

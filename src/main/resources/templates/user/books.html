@@ -12,14 +12,31 @@
         <a href="/login">
             <button>Đăng nhập</button>
         </a>
-
-        <nav id="navbar">
-            <ul>
-                <li><a href="/user/index">Trang chủ</a></li>
-                <li><a href="/user/books">Các đầu sách</a></li>
-                <li><a href="/user/contact">Liên hệ</a></li>
-            </ul>
-        </nav>
-    </body>
+    <nav id="navbar">
+        <ul>
+            <li><a href="/user/index">Trang chủ</a></li>
+            <li><a href="/user/books">Các đầu sách</a></li>
+            <li><a href="/user/contact">Liên hệ</a></li>
+        </ul>
+    </nav>
+    <h1>Các đầu sách</h1>
+    <table>
+        <tr>
+            <td>Tên sách</td>
+            <td>Tên tác giả</td>
+            <td>Thể loại</td>
+            <td>Năm phát hành</td>
+            <td></td>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.authorName}"></td>
+            <td th:text="${book.category}"></td>
+            <td th:text="${book.publishedYear}"></td>
+            <!-- Button này thay vì text thì làm một cái icon -->
+            <td><button>Thêm vào giỏ hàng</button></td>
+        </tr>
+    </table>
+</body>
 
 </html>
