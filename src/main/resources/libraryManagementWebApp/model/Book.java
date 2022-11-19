@@ -25,16 +25,18 @@ public class Book {
 	private String authorName;
 	private String category;
 	private Integer publishedYear;
+	private Integer available;
 		
-    @ManyToMany(mappedBy = "books")
-    private List<Loan> loans;
+//    @ManyToMany(mappedBy = "books")
+//    private List<Loan> loans;
     
-	public Book(String title, String authorName, String category, Integer publishedYear) {
+	public Book(String title, String authorName, String category, Integer publishedYear, Integer available) {
 		super();
 		this.title = title;
 		this.authorName = authorName;
 		this.category = category;
 		this.publishedYear = publishedYear;
+		this.available = available;
 	}	
 	
 	

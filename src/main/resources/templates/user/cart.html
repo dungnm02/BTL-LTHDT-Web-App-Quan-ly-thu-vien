@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Các đầu sách</title>
+    </head>
+
+    <body>
+        <a href="/login">
+            <button>Đăng nhập</button>
+        </a>
+        <a href="/user/cart">
+            <button>Giỏ hàng</button>
+        </a>
+    <nav id="navbar">
+        <ul>
+            <li><a href="/user/index">Trang chủ</a></li>
+            <li><a href="/user/books">Các đầu sách</a></li>
+            <li><a href="/user/contact">Liên hệ</a></li>
+        </ul>
+    </nav>
+    <h1>Các đầu sách</h1>
+    <table>
+        <tr>
+            <td>Tên sách</td>
+            <td>Tên tác giả</td>
+            <td>Thể loại</td>
+            <td>Năm phát hành</td>
+            <td>Số lượng</td>
+            <td></td>
+        </tr>
+
+        <div th:if="${message != null}">
+            <p th:text="${message}"></p>
+        </div>
+
+        <tr th:each="book : ${books}">
+            <td th:text="${book.getKey().title}"></td>
+            <td th:text="${book.getKey().authorName}"></td>
+            <td th:text="${book.getKey().category}"></td>
+            <td th:text="${book.getKey().publishedYear}"></td>
+            <td th:text="${book.getValue()}"></td>
+            <td>
+                <!-- thay text bằng icon -->
+                <a th:href="@{|/user/cart/add/${book.getKey().id}|}">
+                    <button>Tăng số lượng</button>
+                </a>
+            </td>
+            <td>
+                <!-- thay text bằng icon -->
+                <a th:href="@{|/user/cart/removes/${book.getKey().id}|}">
+                    <button>Giảm số lượng</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <a href="/user/createNewLoan">
+        <button>Xác nhận</button>
+    </a>
+</body>
+
+</html>
