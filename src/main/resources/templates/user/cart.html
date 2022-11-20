@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Các đầu sách</title>
+    </head>
+
+    <body>
+        <a href="/login">
+            <button>Đăng nhập</button>
+        </a>
+        <a href="/user/cart">
+            <button>Giỏ hàng</button>
+        </a>
+    <nav id="navbar">
+        <ul>
+            <li><a href="/user/index">Trang chủ</a></li>
+            <li><a href="/user/books">Các đầu sách</a></li>
+            <li><a href="/user/contact">Liên hệ</a></li>
+        </ul>
+    </nav>
+    <h1>Các đầu sách</h1>
+    <table>
+        <tr>
+            <td>Tên sách</td>
+            <td>Tên tác giả</td>
+            <td>Thể loại</td>
+            <td>Năm phát hành</td>
+            <td>Số lượng</td>
+            <td></td>
+        </tr>
+
+        <div th:if="${message != null}">
+            <p th:text="${message}"></p>
+        </div>
+
+        <tr th:each="book, iterStat : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.authorName}"></td>
+            <td th:text="${book.category}"></td>
+            <td th:text="${book.publishedYear}"></td>
+            <td th:text="${booksQuantity[iterStat.index]}"></td>
+            <td>
+                <!-- thay text bằng icon -->
+                <a th:href="@{|/user/cart/add/${book.id}|}">
+                    <button>Tăng số lượng</button>
+                </a>
+            </td>
+            <td>
+                <!-- thay text bằng icon -->
+                <a th:href="@{|/user/cart/remove/${book.id}|}">
+                    <button>Giảm số lượng</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <form th:action="@{|/user/cart/createNewLoan|}" method="post" th:object="${loan}">
+        <div>Họ và tên
+            <input type="text" th:field="*{loanerName}" />
+        </div>
+        <br>
+        <div>Địa chỉ email
+            <input type="email" th:field="*{loanerEmail}" />
+        </div>
+        <br>
+        <div>Số điện thoại
+            <input type="tel" placeholder="0123456789" pattern="[0-9]{4}[0-9]{3}[0-9]{3}"
+                th:field="*{loanerTel}" />
+        </div>
+        <br>
+        <input type="submit" value="Xác nhận" />
+    </form>
+</body>
+
+</html>

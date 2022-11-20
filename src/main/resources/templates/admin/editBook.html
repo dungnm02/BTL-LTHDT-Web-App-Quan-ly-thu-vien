@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm sách</title>
+</head>
+
+<body>
+    <a href="/logout">
+        <button>Đăng xuất</button>
+    </a>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="/admin/index">Trang chủ</a></li>
+            <li><a href="/admin/books">Các đầu sách</a></li>
+            <li><a href="/admin/loans">Các đơn mượn</a></li>
+            <li><a href="/admin/addBook">Thêm đầu sách</a></li>
+        </ul>
+    </nav>
+    <h1>Chỉnh sửa đầu sách</h1>
+
+    <form th:action="@{|/admin/saveEdit/${id}|}" method="post" th:object="${book}">
+        <div>Tên đầu sách
+            <input type="text" th:field="*{title}" />
+        </div>
+        <br>
+        <div>Tên tác giả
+            <input type="text" th:field="*{authorName}" />
+        </div>
+        <br>
+        <div>Năm phát hành
+            <input type="number" min="1000" max="2099" step="1"
+                th:field="*{publishedYear}" />
+        </div>
+        <br>
+        <div>Số lượng còn lại
+            <input type="number" th:field="*{available}" />
+        </div>
+        <br>
+        <input type="submit" value="Lưu" />
+    </form>
+
+</body>
+
+</html>

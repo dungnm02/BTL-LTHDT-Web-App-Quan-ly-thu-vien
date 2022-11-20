@@ -9,27 +9,27 @@
 </head>
 
 <body>
-    <a href="/logout">
-        <button>Đăng xuất</button>
+    <a href="/login">
+        <button>Đăng nhập</button>
     </a>
-
+    <a href="/user/cart">
+        <button>Giỏ hàng</button>
+    </a>
     <nav id="navbar">
         <ul>
-            <li><a href="/admin/index">Trang chủ</a></li>
-            <li><a href="/admin/books">Các đầu sách</a></li>
-            <li><a href="/admin/loans">Các đơn mượn</a></li>
-            <li><a href="/admin/addBook">Thêm đầu sách</a></li>
+            <li><a href="/user/index">Trang chủ</a></li>
+            <li><a href="/user/books">Các đầu sách</a></li>
+            <li><a href="/user/contact">Liên hệ</a></li>
         </ul>
     </nav>
-    <form th:action="@{/admin/books/search}">
-        <label for="keyword">Tìm kiếm:</label>
-        <input type="text" class="form-control" name="keyword">
-        <button>Search</button>
-    </form>
     <h1>Các đầu sách</h1>
+    <select class="select-input">Tìm kiếm theo
+        <option value="">English</option>
+        <option value="German">German</option>
+        <option value="French">French</option>
+    </select>
     <table>
         <tr>
-            <td>Mã đầu sách</td>
             <td>Tên sách</td>
             <td>Tên tác giả</td>
             <td>Thể loại</td>
@@ -37,26 +37,15 @@
             <td>Số lượng còn lại</td>
             <td></td>
         </tr>
-
-        <div th:if="${message != null}">
-            <p th:text="${message}"></p>
-        </div>
-
         <tr th:each="book : ${books}">
-            <td th:text="${book.id}"></td>
             <td th:text="${book.title}"></td>
             <td th:text="${book.authorName}"></td>
             <td th:text="${book.category}"></td>
             <td th:text="${book.publishedYear}"></td>
             <td th:text="${book.available}"></td>
             <td>
-                <a th:href="@{|/admin/edit/${book.id}|}">
-                    <button>Chỉnh sửa</button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{|/admin/delete/${book.id}|}">
-                    <button>Xóa</button>
+                <a th:href="@{|/user/cart/add/${book.id}|}">
+                    <button>Thêm vào giỏ hàng</button>
                 </a>
             </td>
         </tr>

@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Các đầu sách</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Các đầu sách</title>
+</head>
 
-    <body>
-        <a href="/login">
-            <button>Đăng nhập</button>
-        </a>
+<body>
+    <a href="/login">
+        <button>Đăng nhập</button>
+    </a>
+    <a href="/user/cart">
+        <button>Giỏ hàng</button>
+    </a>
     <nav id="navbar">
         <ul>
             <li><a href="/user/index">Trang chủ</a></li>
@@ -19,6 +22,12 @@
             <li><a href="/user/contact">Liên hệ</a></li>
         </ul>
     </nav>
+    <!-- Thanh tìm kiếm -->
+    <form th:action="@{/user/books/search}">
+        <label for="keyword">Tìm kiếm:</label>
+        <input type="text" class = "form-control" name ="keyword">
+        <button>Search</button>
+    </form>
     <h1>Các đầu sách</h1>
     <table>
         <tr>
@@ -26,6 +35,7 @@
             <td>Tên tác giả</td>
             <td>Thể loại</td>
             <td>Năm phát hành</td>
+            <td>Số lượng còn lại</td>
             <td></td>
         </tr>
         <tr th:each="book : ${books}">
@@ -33,8 +43,12 @@
             <td th:text="${book.authorName}"></td>
             <td th:text="${book.category}"></td>
             <td th:text="${book.publishedYear}"></td>
-            <!-- Button này thay vì text thì làm một cái icon -->
-            <td><button>Thêm vào giỏ hàng</button></td>
+            <td th:text="${book.available}"></td>
+            <td>
+                <a th:href="@{|/user/cart/add/${book.id}|}">
+                    <button>Thêm vào giỏ hàng</button>
+                </a>
+            </td>
         </tr>
     </table>
 </body>

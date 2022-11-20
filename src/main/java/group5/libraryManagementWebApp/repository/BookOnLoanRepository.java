@@ -1,13 +1,10 @@
 package group5.libraryManagementWebApp.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import group5.libraryManagementWebApp.model.Loan;
+import group5.libraryManagementWebApp.model.BookOnLoan;
 
 @Repository
-public interface LoanRepository extends JpaRepository<Loan, Long> {
-	
+public interface BookOnLoanRepository extends JpaRepository<BookOnLoan, Long> {
 }
