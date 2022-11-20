@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import group5.libraryManagementWebApp.model.Book;
 import group5.libraryManagementWebApp.model.BookOnLoan;
 import group5.libraryManagementWebApp.model.Loan;
@@ -50,11 +48,6 @@ public class AdminController {
 		if (message.isPresent()) {
 			model.addAttribute("message", message.get());
 		}
-		Loan loan = loanRepository.getReferenceById((long) 1);
-		for (BookOnLoan book : loan.getBooksOnLoan()) {
-			System.out.print(book.getBook().getTitle());
-			System.out.print(book.getQuantity());
-		}
 		model.addAttribute("books", bookService.getBooks());
 		return "admin/books";
 	}
@@ -71,13 +64,6 @@ public class AdminController {
     	model.addAttribute("books", books);
     	return "admin/searchBooks";
     }
-
-	@GetMapping(value = "/delete/{id}")
-	public String delete(RedirectAttributes attributes, @PathVariable("id") Long id) {
-		bookService.deleteBook(id);
-		attributes.addAttribute("message", "Đầu sách có id: " + id + " đã được xóa");
-		return "redirect:/admin/books";
-	}
 
 	@GetMapping(value = "/edit/{id}")
 	public String edit(ModelMap model, @PathVariable("id") Long id) {
@@ -112,7 +98,6 @@ public class AdminController {
     	}
     	System.out.print(keyword);
     	System.out.print(loans.size());
-    	model.addAttribute("loans", loans);
     	return "admin/searchLoans";
     }
     

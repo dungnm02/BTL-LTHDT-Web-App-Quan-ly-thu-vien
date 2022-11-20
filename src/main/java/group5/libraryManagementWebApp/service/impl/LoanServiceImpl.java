@@ -22,6 +22,7 @@ public class LoanServiceImpl implements LoanService {
 	}
 
 	public void createLoan(Loan loan) {
+		loan.setStatus("NEW");
 		loanRepository.save(loan);
 	}
 

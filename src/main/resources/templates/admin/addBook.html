@@ -26,19 +26,22 @@
         method="post"
         th:object="${book}">
         <div>Tên đầu sách
-            <input type="text" th:field="*{title}"/>
+            <input type="text" th:field="*{title}" required/>
         </div>
         <br>
         <div>Tên tác giả
-            <input type="text" th:field="*{authorName}"/>
+            <input type="text" th:field="*{authorName}" required/>
         </div>
         <br>   
         <div>Năm phát hành
-            <input type="number" min="1000" max="2099" step="1" th:field="*{publishedYear}"/>
+            <input type="number" min="1000" max="2099" step="1" th:field="*{publishedYear}" required/>
         </div>         
+        <div>Thể loại
+            <input type="text" th:field="*{category}" required/>
+        </div> 
         <br>
         <div>Số lượng còn lại
-            <input type="number" th:field="*{available}"/>
+            <input type="number" th:field="*{available}" required/>
         </div>     
         <br>
         <input type="submit" value="Save"/>

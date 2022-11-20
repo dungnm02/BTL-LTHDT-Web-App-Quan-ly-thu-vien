@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import group5.libraryManagementWebApp.repository.BookOnLoanRepository;
 import group5.libraryManagementWebApp.repository.BookRepository;
 import group5.libraryManagementWebApp.service.BookService;
 import group5.libraryManagementWebApp.model.Book;
@@ -13,13 +13,11 @@ import group5.libraryManagementWebApp.model.Book;
 public class BookServiceImpl implements BookService {
 	@Autowired
 	BookRepository bookRepository;
+	@Autowired
+	BookOnLoanRepository bookOnLoanRepository;
 
 	public List<Book> getBooks() {
 		return bookRepository.findAll();
-	}
-
-	public void deleteBook(Long id) {
-		bookRepository.deleteById(id);
 	}
 
 	public void addBook(Book book) {

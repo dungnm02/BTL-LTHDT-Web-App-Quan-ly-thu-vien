@@ -43,7 +43,7 @@
             <td th:text="${loan.id}"></td>
             <td th:text="${loan.loanerEmail}"></td>
             <td th:text="${loan.booksOnLoan.size()}"></td>
-            <td></td>
+            <td th:text="${loan.status}"></td>
             <td>
                 <a th:href="@{|/admin/loans/${loan.id}|}">
                     <button>Xem thông tin</button>
