@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Các đơn mượn</title>
+</head>
+
+<body>
+    <a href="/logout">
+        <button>Đăng xuất</button>
+    </a>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="/admin/index">Trang chủ</a></li>
+            <li><a href="/admin/books">Các đầu sách</a></li>
+            <li><a href="/admin/loans">Các đơn mượn</a></li>
+            <li><a href="/admin/addBook">Thêm đầu sách</a></li>
+        </ul>
+    </nav>
+    <h1>Đơn mượn</h1>
+    <div th:if="${message != null}">
+        <p th:text="${message}"></p>
+    </div>  
+    <ul>
+        <li>Mã đơn mượn
+            <p th:text="${loan.id}"></p>
+        </li>
+        <li>Họ và tên
+            <p th:text="${loan.loanerName}"></p>
+        </li>
+        <li>Email
+            <p th:text="${loan.loanerEmail}"></p>
+        </li>
+        <li>Số điện thoại
+            <p th:text="${loan.loanerTel}"></p>
+        </li>
+    </ul>
+    <h2>Yêu cầu</h2>
+    <table>
+        <tr>
+            <td>Mã đầu sách</td>
+            <td>Tên đầu sách</td>
+            <td>Tên tác giả</td>
+            <td>Năm phát hành</td>
+            <td>Số lượng</td>
+        </tr>
+        <tr th:each="bookOnLoan, iterStat: ${booksOnLoan}">
+            <td th:text="${books[iterStat.index].id}"></td>
+            <td th:text="${books[iterStat.index].title}"></td>
+            <td th:text="${books[iterStat.index].authorName}"></td>
+            <td th:text="${books[iterStat.index].publishedYear}"></td>
+            <td th:text="${bookOnLoan.quantity}"></td>
+        </tr>
+    </table>
+    
+
+</body>
+
+</html>

@@ -37,42 +37,29 @@
             <p th:text="${message}"></p>
         </div>
 
-        <tr th:each="book, iterStat : ${books}">
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.authorName}"></td>
-            <td th:text="${book.category}"></td>
-            <td th:text="${book.publishedYear}"></td>
-            <td th:text="${booksQuantity[iterStat.index]}"></td>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.getKey().title}"></td>
+            <td th:text="${book.getKey().authorName}"></td>
+            <td th:text="${book.getKey().category}"></td>
+            <td th:text="${book.getKey().publishedYear}"></td>
+            <td th:text="${book.getValue()}"></td>
             <td>
                 <!-- thay text bằng icon -->
-                <a th:href="@{|/user/cart/add/${book.id}|}">
+                <a th:href="@{|/user/cart/add/${book.getKey().id}|}">
                     <button>Tăng số lượng</button>
                 </a>
             </td>
             <td>
                 <!-- thay text bằng icon -->
-                <a th:href="@{|/user/cart/remove/${book.id}|}">
+                <a th:href="@{|/user/cart/removes/${book.getKey().id}|}">
                     <button>Giảm số lượng</button>
                 </a>
             </td>
         </tr>
     </table>
-    <form th:action="@{|/user/cart/createNewLoan|}" method="post" th:object="${loan}">
-        <div>Họ và tên
-            <input type="text" th:field="*{loanerName}" />
-        </div>
-        <br>
-        <div>Địa chỉ email
-            <input type="email" th:field="*{loanerEmail}" />
-        </div>
-        <br>
-        <div>Số điện thoại
-            <input type="tel" placeholder="0123456789" pattern="[0-9]{4}[0-9]{3}[0-9]{3}"
-                th:field="*{loanerTel}" />
-        </div>
-        <br>
-        <input type="submit" value="Xác nhận" />
-    </form>
+    <a href="/user/createNewLoan">
+        <button>Xác nhận</button>
+    </a>
 </body>
 
 </html>
