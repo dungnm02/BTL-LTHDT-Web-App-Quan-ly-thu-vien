@@ -59,16 +59,16 @@
     </table>
     <form th:action="@{|/user/cart/createNewLoan|}" method="post" th:object="${loan}">
         <div>Họ và tên
-            <input type="text" th:field="*{loanerName}" />
+            <input type="text" th:field="*{loanerName}" required/>
         </div>
         <br>
         <div>Địa chỉ email
-            <input type="email" th:field="*{loanerEmail}" />
+            <input type="email" th:field="*{loanerEmail}" required/>
         </div>
         <br>
         <div>Số điện thoại
             <input type="tel" placeholder="0123456789" pattern="[0-9]{4}[0-9]{3}[0-9]{3}"
-                th:field="*{loanerTel}" />
+                th:field="*{loanerTel}" required/>
         </div>
         <br>
         <input type="submit" value="Xác nhận" />

@@ -5,13 +5,218 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Các đầu sách</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            height: 1000px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        html {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        #bt {
+            width: 10%;
+            height: 50px;
+            background-color: #000;
+            display: inline-block;
+        }
+
+        #bt .logout-bt {
+            padding: 10px 20px;
+        }
+
+        #bt .logout-bt .logout-button {
+            width: 100%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #1859c9;
+            cursor: pointer;
+        }
+
+        #bt .logout-bt .logout-button:hover {
+            background-color: #1859c9db;
+        }
+
+        #navbar {
+            background-color: #000;
+            width: 90%;
+            float: left;
+            z-index: 0;
+            height: 50px;
+        }
+
+        #navbar ul {
+            margin: 0 auto;
+        }
+
+        #navbar li {
+            display: inline-block;
+        }
+
+        #navbar li a {
+            color: #fff;
+            text-decoration: none;
+            line-height: 50px;
+            padding: 0 24px;
+            display: inline-block;
+        }
+
+        #navbar li:hover a {
+            color: #000;
+            background-color: #ccc;
+        }
+
+        .main-content {
+            border: double;
+        }
+
+        .head {
+            padding: 5px 0;
+            text-align: center;
+            margin: 0 0;
+        }
+
+        form {
+            background-color: #FFCC66;
+            padding: 20px 30px;
+            width: 30%;
+            margin: 0 auto;
+        }
+
+        form label {
+            text-align: left;
+            font-weight: 600;
+        }
+
+        form input[type=text] {
+            width: 100%;
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        form .search-button {
+            width: 20%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #00CC66;
+            cursor: pointer;
+        }
+
+        form .search-button:hover {
+            background-color: #0099FF;
+        }
+
+        td,
+        th {
+            padding: 8px;
+            padding: .5rem;
+        }
+
+        th {
+            text-align: left;
+            font-weight: 300;
+            font-size: 20px;
+            font-size: 1.25rem;
+        }
+
+        td {
+            font-family: 'Avenir Next', 'Segoe UI', 'Lucida Grande', sans-serif;
+        }
+
+        .table {
+            width: 100%;
+            padding: 16px;
+            padding: 1rem;
+
+        }
+
+        .table__heading {
+            border-bottom: 2px solid #FFC842;
+        }
+
+        @media (max-width: 32rem) {
+            .table__heading {
+                display: none;
+            }
+
+            .table__content {
+                display: block;
+                padding: .5rem 0;
+            }
+
+            .table__row {
+                margin: .25rem 1rem;
+                padding: .5rem 0;
+                display: block;
+                border-bottom: 2px solid #FFC842;
+            }
+
+            .table__content:before {
+                content: attr(data-heading);
+                display: inline-block;
+                width: 5rem;
+                margin-right: .5rem;
+                color: #999;
+                font-size: .75rem;
+                font-weight: 700;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+        }
+
+        .table .table__row .edit-button {
+            width: 50%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #00CC66;
+            cursor: pointer;
+        }
+
+        .table .table__row .edit-button:hover {
+            background-color: #0099FF;
+        }
+
+        #footer {
+            position: absolute;
+            text-align: center;
+            color: #fff;
+            padding-top: 20px;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #1E1E1E;
+        }
+    </style>
 </head>
 
 <body>
-    <a href="/logout">
-        <button>Đăng xuất</button>
-    </a>
+    <div id="bt">
+        <div class="logout-bt">
+            <a href="/logout">
+                <button class="logout-button">Đăng xuất</button>
+            </a>
+        </div>
+    </div>
 
     <nav id="navbar">
         <ul>
@@ -21,46 +226,51 @@
             <li><a href="/admin/addBook">Thêm đầu sách</a></li>
         </ul>
     </nav>
+
     <form th:action="@{/admin/books/search}">
         <label for="keyword">Tìm kiếm:</label>
         <input type="text" class="form-control" name="keyword">
-        <button>Search</button>
+        <button class="search-button">Search</button>
     </form>
-    <h1>Các đầu sách</h1>
-    <table>
-        <tr>
-            <td>Mã đầu sách</td>
-            <td>Tên sách</td>
-            <td>Tên tác giả</td>
-            <td>Thể loại</td>
-            <td>Năm phát hành</td>
-            <td>Số lượng còn lại</td>
-            <td></td>
-        </tr>
 
-        <div th:if="${message != null}">
-            <p th:text="${message}"></p>
-        </div>
+    <div class="main-content">
+        <h1 class="head">Các đầu sách</h1>
+        <table class="table">
+            <tr>
+                <td class="table__heading">Mã đầu sách</td>
+                <td class="table__heading">Tên sách</td>
+                <td class="table__heading">Tên tác giả</td>
+                <td class="table__heading">Thể loại</td>
+                <td class="table__heading">Năm phát hành</td>
+                <td class="table__heading">Số lượng còn lại</td>
+                <td></td>
+            </tr>
 
-        <tr th:each="book : ${books}">
-            <td th:text="${book.id}"></td>
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.authorName}"></td>
-            <td th:text="${book.category}"></td>
-            <td th:text="${book.publishedYear}"></td>
-            <td th:text="${book.available}"></td>
-            <td>
-                <a th:href="@{|/admin/edit/${book.id}|}">
-                    <button>Chỉnh sửa</button>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{|/admin/delete/${book.id}|}">
-                    <button>Xóa</button>
-                </a>
-            </td>
-        </tr>
-    </table>
+            <div th:if="${message != null}">
+                <p th:text="${message}"></p>
+            </div>
+
+            <tr class="table__row" th:each="book : ${books}">
+                <td class="table__content" th:text="${book.id}"></td>
+                <td class="table__content" th:text="${book.title}"></td>
+                <td class="table__content" th:text="${book.authorName}"></td>
+                <td class="table__content" th:text="${book.category}"></td>
+                <td class="table__content" th:text="${book.publishedYear}"></td>
+                <td class="table__content" th:text="${book.available}"></td>
+                <td>
+                    <a th:href="@{|/admin/edit/${book.id}|}">
+                        <button class="edit-button">Chỉnh sửa</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="footer">
+        THƯ VIỆN HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG: Địa chỉ: Km10, Đường Nguyễn Trãi, Quận Hà Đông, Hà Nội, điện
+        thoại: 024-66668888 (tổng đài). Email: contact.libary.ptit.hn@mail.com<br>
+        Website: https://www.libary.ptit.hn.vn<br>
+    </div>
 </body>
 
 </html>

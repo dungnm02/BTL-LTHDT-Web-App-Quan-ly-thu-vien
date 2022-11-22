@@ -9,5 +9,5 @@ import group5.libraryManagementWebApp.model.Loan;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
-	
+	List<Loan> findByStatus(String status);
 }
