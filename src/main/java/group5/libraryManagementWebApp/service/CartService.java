@@ -6,9 +6,14 @@ import group5.libraryManagementWebApp.model.Book;
 import group5.libraryManagementWebApp.model.Loan;
 
 public interface CartService {
-	void addBook(Long id);
-	void removeBook(Long id);
+
+	public void addBook(Long id);
+
+	public void removeBook(Long id);
+
 	public List<Book> getBooksInCart();
+
 	public List<Integer> getBooksQuantityInCart();
-	void createLoan(Loan loan);
+
+	public void createLoan(Loan loan);
 }

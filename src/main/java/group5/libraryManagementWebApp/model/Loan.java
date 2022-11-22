@@ -1,13 +1,11 @@
 package group5.libraryManagementWebApp.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Data // toString, Getter, Setter...
 @NoArgsConstructor // Constructor with no parameters
 public class Loan {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -40,9 +38,11 @@ public class Loan {
 	@Column(nullable = false)
 	private String status;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date borrowDate; 
+	private LocalDate borrowDate;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date returnDate;
+	private LocalDate expireDate;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private LocalDate returnDate;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "loan")
 	List<BookOnLoan> booksOnLoan;

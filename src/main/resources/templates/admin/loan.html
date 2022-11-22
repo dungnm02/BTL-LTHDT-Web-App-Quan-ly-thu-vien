@@ -5,13 +5,225 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Các đơn mượn</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            height: 1200px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        html {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        #bt {
+            width: 10%;
+            height: 50px;
+            background-color: #000;
+            display: inline-block;
+        }
+
+        #bt .logout-bt {
+            padding: 10px 20px;
+        }
+
+        #bt .logout-bt .logout-button {
+            width: 100%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #1859c9;
+            cursor: pointer;
+        }
+
+        #bt .logout-bt .logout-button:hover {
+            background-color: #1859c9db;
+        }
+
+        #navbar {
+            background-color: #000;
+            width: 90%;
+            float: left;
+            z-index: 0;
+            height: 50px;
+        }
+
+        #navbar ul {
+            margin: 0 auto;
+        }
+
+        #navbar li {
+            display: inline-block;
+        }
+
+        #navbar li a {
+            color: #fff;
+            text-decoration: none;
+            line-height: 50px;
+            padding: 0 24px;
+            display: inline-block;
+        }
+
+        #navbar li:hover a {
+            color: #000;
+            background-color: #ccc;
+        }
+
+        .loan_application {
+            border: double;
+        }
+
+        .loan_application ul {
+            padding-left: 30%;
+        }
+
+        .head {
+            padding: 5px 0;
+            text-align: center;
+            margin: 0 0;
+        }
+
+        .list_loan li {
+            list-style-type: circle;
+        }
+
+        form input[type=number] {
+            width: 10%;
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        form .combo_box {
+            width: 10%;
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        form input[type=submit] {
+            width: 10%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #00CC66;
+            cursor: pointer;
+        }
+
+        form input[type=submit]:hover {
+            background-color: #0099FF;
+        }
+
+        .request_element {
+            border: double;
+        }
+
+        td,
+        th {
+            padding: 8px;
+            padding: .5rem;
+        }
+
+        th {
+            text-align: left;
+            font-weight: 300;
+            font-size: 20px;
+            font-size: 1.25rem;
+        }
+
+        td {
+            font-family: 'Avenir Next', 'Segoe UI', 'Lucida Grande', sans-serif;
+        }
+
+        .table {
+            width: 100%;
+            padding: 16px;
+            padding: 1rem;
+
+        }
+
+        .table__heading {
+            border-bottom: 2px solid #FFC842;
+        }
+
+        @media (max-width: 32rem) {
+            .table__heading {
+                display: none;
+            }
+
+            .table__content {
+                display: block;
+                padding: .5rem 0;
+            }
+
+            .table__row {
+                margin: .25rem 1rem;
+                padding: .5rem 0;
+                display: block;
+                border-bottom: 2px solid #FFC842;
+            }
+
+            .table__content:before {
+                content: attr(data-heading);
+                display: inline-block;
+                width: 5rem;
+                margin-right: .5rem;
+                color: #999;
+                font-size: .75rem;
+                font-weight: 700;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+        }
+
+        .table .table__row .edit-button {
+            width: 50%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #00CC66;
+            cursor: pointer;
+        }
+
+        .table .table__row .edit-button:hover {
+            background-color: #0099FF;
+        }
+
+        #footer {
+            position: absolute;
+            text-align: center;
+            color: #fff;
+            padding-top: 20px;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #1E1E1E;
+        }
+    </style>
 </head>
 
 <body>
-    <a href="/logout">
-        <button>Đăng xuất</button>
-    </a>
+    <div id="bt">
+        <div class="logout-bt">
+            <a href="/logout">
+                <button class="logout-button">Đăng xuất</button>
+            </a>
+        </div>
+    </div>
 
     <nav id="navbar">
         <ul>
@@ -21,42 +233,91 @@
             <li><a href="/admin/addBook">Thêm đầu sách</a></li>
         </ul>
     </nav>
-    <h1>Đơn mượn</h1>
-    <div th:if="${message != null}">
-        <p th:text="${message}"></p>
-    </div>  
-    <ul>
-        <li>Mã đơn mượn
-            <p th:text="${loan.id}"></p>
-        </li>
-        <li>Họ và tên
-            <p th:text="${loan.loanerName}"></p>
-        </li>
-        <li>Email
-            <p th:text="${loan.loanerEmail}"></p>
-        </li>
-        <li>Số điện thoại
-            <p th:text="${loan.loanerTel}"></p>
-        </li>
-    </ul>
-    <h2>Yêu cầu</h2>
-    <table>
-        <tr>
-            <td>Mã đầu sách</td>
-            <td>Tên đầu sách</td>
-            <td>Tên tác giả</td>
-            <td>Năm phát hành</td>
-            <td>Số lượng</td>
-        </tr>
-        <tr th:each="bookOnLoan, iterStat: ${booksOnLoan}">
-            <td th:text="${books[iterStat.index].id}"></td>
-            <td th:text="${books[iterStat.index].title}"></td>
-            <td th:text="${books[iterStat.index].authorName}"></td>
-            <td th:text="${books[iterStat.index].publishedYear}"></td>
-            <td th:text="${bookOnLoan.quantity}"></td>
-        </tr>
-    </table>
-    
+
+    <div class="loan_application">
+        <h1 class="head">Đơn mượn</h1>
+        <div th:if="${message != null}">
+            <p th:text="${message}"></p>
+        </div>
+
+        <ul class="list_loan">
+            <li>Mã đơn mượn
+                <p th:text="${loan.id}"></p>
+            </li>
+            <li>Họ và tên
+                <p th:text="${loan.loanerName}"></p>
+            </li>
+            <li>Email
+                <p th:text="${loan.loanerEmail}"></p>
+            </li>
+            <li>Số điện thoại
+                <p th:text="${loan.loanerTel}"></p>
+            </li>
+
+            <div th:if="${loan.borrowDate != null}">
+                <li>Ngày mượn
+                    <p th:text="${loan.borrowDate}"></p>
+                </li>
+            </div>
+
+            <div th:if="${loan.expireDate != null}">
+                <li>Ngày hết hạn
+                    <p th:text="${loan.expireDate}"></p>
+                </li>
+            </div>
+
+            <div th:if="${loan.returnDate != null}">
+                <li>Ngày trả
+                    <p th:text="${loan.returnDate}"></p>
+                </li>
+            </div>
+
+            <div th:if="${loan.borrowDate != null}">
+                <li>Thời hạn
+                    <form th:action="@{|/admin/updateExpireDate/${loan.id}|}" method="post">
+                        <input type="number" min="0" max="100" th:value="*{dateTillExpire}" name="days" required>
+                        <input type="submit" value="Xác nhận" />
+                    </form>
+                </li>
+            </div>
+
+            <li>Cập nhật
+                <form th:action="@{|/admin/updateLoan/${id}|}" method="post" th:object="${loan}">
+                    <select class="combo_box" th:field="*{status}">
+                        <option value="${loan.status}" th:text="${loan.status}"></option>
+                        <option th:each="ele : ${nextStatus}" th:value="${ele}" th:text="${ele}"></option>
+                    </select>
+                    <input type="submit" value="Xác nhận" />
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <div class="request_element">
+        <h2 class="head">Yêu cầu</h2>
+        <table class="table">
+            <tr>
+                <td class="table__heading">Mã đầu sách</td>
+                <td class="table__heading">Tên đầu sách</td>
+                <td class="table__heading">Tên tác giả</td>
+                <td class="table__heading">Năm phát hành</td>
+                <td class="table__heading">Số lượng</td>
+            </tr>
+            <tr class="table__row" th:each="bookOnLoan, iterStat: ${booksOnLoan}">
+                <td class="table__content" th:text="${books[iterStat.index].id}"></td>
+                <td class="table__content" th:text="${books[iterStat.index].title}"></td>
+                <td class="table__content" th:text="${books[iterStat.index].authorName}"></td>
+                <td class="table__content" th:text="${books[iterStat.index].publishedYear}"></td>
+                <td class="table__content" th:text="${bookOnLoan.quantity}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="footer">
+        THƯ VIỆN HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG: Địa chỉ: Km10, Đường Nguyễn Trãi, Quận Hà Đông, Hà Nội, điện
+        thoại: 024-66668888 (tổng đài). Email: contact.libary.ptit.hn@mail.com<br>
+        Website: https://www.libary.ptit.hn.vn<br>
+    </div>
 
 </body>
 

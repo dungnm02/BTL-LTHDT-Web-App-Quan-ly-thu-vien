@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import group5.libraryManagementWebApp.model.Loan;
 import group5.libraryManagementWebApp.service.CartService;
 
@@ -19,7 +17,7 @@ public class CartController {
 	private CartService cartService;
 
 	@GetMapping(value = "")
-	public String books(ModelMap model) {
+	public String getBooksInCart(ModelMap model) {
 		Loan loan = new Loan();
 		model.addAttribute("loan", loan);
 		model.addAttribute("books", cartService.getBooksInCart());
@@ -28,13 +26,13 @@ public class CartController {
 	}
 
 	@GetMapping(value = "/add/{id}")
-	public String add(RedirectAttributes attributes, @PathVariable("id") Long id) {
+	public String addBook(@PathVariable("id") Long id) {
 		cartService.addBook(id);
 		return "redirect:/user/cart";
 	}
 
 	@GetMapping(value = "/remove/{id}")
-	public String remove(@PathVariable("id") Long id) {
+	public String removeBook(@PathVariable("id") Long id) {
 		cartService.removeBook(id);
 		return "redirect:/user/cart";
 	}
@@ -44,4 +42,5 @@ public class CartController {
 		cartService.createLoan(loan);
 		return "redirect:/user/cart";
 	}
+
 }

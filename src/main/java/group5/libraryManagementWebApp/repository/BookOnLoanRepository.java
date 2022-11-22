@@ -7,5 +7,4 @@ import group5.libraryManagementWebApp.model.BookOnLoan;
 
 @Repository
 public interface BookOnLoanRepository extends JpaRepository<BookOnLoan, Long> {
-	Long deleteByBookId(long bookId);
 }
