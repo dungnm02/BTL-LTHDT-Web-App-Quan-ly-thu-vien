@@ -193,7 +193,7 @@ public class AdminController {
 		Loan loan = loanRepository.getReferenceById(id);
 		loan.setExpireDate(loan.getBorrowDate().plusDays(days));
 		loanRepository.flush();
-		emailService.sendMail(emailService.createInProgressEmail(loan));
+		emailService.sendMail(emailService.createUpdateExpireDateEmail(loan));
 		return "redirect:/admin/loans/" + id;
 	}
 
