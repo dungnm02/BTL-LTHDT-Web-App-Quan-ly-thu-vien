@@ -40,7 +40,7 @@ public class CartController {
 	@PostMapping(value = "/createNewLoan")
 	public String createNewLoan(ModelMap model, Loan loan) {
 		cartService.createLoan(loan);
-		return "redirect:/user/cart";
+		return "redirect:/user/books";
 	}
 
 }

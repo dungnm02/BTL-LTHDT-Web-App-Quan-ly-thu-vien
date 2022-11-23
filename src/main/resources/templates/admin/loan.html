@@ -241,39 +241,39 @@
         </div>
 
         <ul class="list_loan">
-            <li>Mã đơn mượn
+            <li>Mã đơn mượn:
                 <p th:text="${loan.id}"></p>
             </li>
-            <li>Họ và tên
+            <li>Họ và tên:
                 <p th:text="${loan.loanerName}"></p>
             </li>
-            <li>Email
+            <li>Email:
                 <p th:text="${loan.loanerEmail}"></p>
             </li>
-            <li>Số điện thoại
+            <li>Số điện thoại:
                 <p th:text="${loan.loanerTel}"></p>
             </li>
 
             <div th:if="${loan.borrowDate != null}">
-                <li>Ngày mượn
+                <li>Ngày mượn:
                     <p th:text="${loan.borrowDate}"></p>
                 </li>
             </div>
 
             <div th:if="${loan.expireDate != null}">
-                <li>Ngày hết hạn
+                <li>Ngày hết hạn:
                     <p th:text="${loan.expireDate}"></p>
                 </li>
             </div>
 
             <div th:if="${loan.returnDate != null}">
-                <li>Ngày trả
+                <li>Ngày trả:
                     <p th:text="${loan.returnDate}"></p>
                 </li>
             </div>
 
-            <div th:if="${loan.borrowDate != null}">
-                <li>Thời hạn
+            <div th:if="${loan.borrowDate != null } and ${loan.status != 'EXPIRED'} and ${loan.status != 'COMPLETED'}">
+                <li>Cập nhật thời hạn:
                     <form th:action="@{|/admin/updateExpireDate/${loan.id}|}" method="post">
                         <input type="number" min="0" max="100" th:value="*{dateTillExpire}" name="days" required>
                         <input type="submit" value="Xác nhận" />
@@ -281,15 +281,17 @@
                 </li>
             </div>
 
-            <li>Cập nhật
-                <form th:action="@{|/admin/updateLoan/${id}|}" method="post" th:object="${loan}">
-                    <select class="combo_box" th:field="*{status}">
-                        <option value="${loan.status}" th:text="${loan.status}"></option>
-                        <option th:each="ele : ${nextStatus}" th:value="${ele}" th:text="${ele}"></option>
-                    </select>
-                    <input type="submit" value="Xác nhận" />
-                </form>
-            </li>
+            <div th:if="${loan.status != 'EXPIRED'} and ${loan.status != 'COMPLETED'} and ${loan.status != 'CANCELLED'}">
+                <li>Cập nhật:
+                    <form th:action="@{|/admin/updateLoan/${id}|}" method="post" th:object="${loan}">
+                        <select class="combo_box" th:field="*{status}">
+                            <option value="${loan.status}" th:text="${loan.status}"></option>
+                            <option th:each="ele : ${nextStatus}" th:value="${ele}" th:text="${ele}"></option>
+                        </select>
+                        <input type="submit" value="Xác nhận" />
+                    </form>
+                </li>
+            </div>
         </ul>
     </div>
 
