@@ -253,7 +253,7 @@
                 <td class="table__content" th:text="${loan.id}"></td>
                 <td class="table__content" th:text="${loan.loanerEmail}"></td>
                 <td class="table__content" th:text="${loan.booksOnLoan.size()}"></td>
-                <td></td>
+                <td class="table__content" th:text="${loan.status}"></td>
                 <td>
                     <a th:href="@{|/admin/loans/${loan.id}|}">
                         <button class="edit-button">Xem thông tin</button>

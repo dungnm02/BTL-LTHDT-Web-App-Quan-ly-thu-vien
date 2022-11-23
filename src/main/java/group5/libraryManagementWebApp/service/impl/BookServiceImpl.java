@@ -13,11 +13,21 @@ public class BookServiceImpl implements BookService {
 
 	public void editBook(Long id, Book book) {
 		Book oldBook = bookRepository.getReferenceById(id);
-		oldBook.setTitle(book.getTitle());
-		oldBook.setAuthorName(book.getAuthorName());
-		oldBook.setCategory(book.getCategory());
-		oldBook.setPublishedYear(book.getPublishedYear());
-		oldBook.setAvailable(book.getAvailable());
+		if (!book.getTitle().strip().isEmpty()) {
+			oldBook.setTitle(book.getTitle());
+		}
+		if (!book.getAuthorName().strip().isEmpty()) {
+			oldBook.setAuthorName(book.getAuthorName());
+		}
+		if (!book.getCategory().strip().isEmpty()) {
+			oldBook.setCategory(book.getCategory());
+		}
+		if (book.getPublishedYear() != null) {
+			oldBook.setPublishedYear(book.getPublishedYear());
+		}
+		if (book.getAvailable() != null) {
+			oldBook.setAvailable(book.getAvailable());
+		}
 		bookRepository.flush();
 	}
 

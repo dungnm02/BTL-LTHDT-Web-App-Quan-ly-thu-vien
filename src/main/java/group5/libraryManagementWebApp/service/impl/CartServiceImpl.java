@@ -96,6 +96,9 @@ public class CartServiceImpl implements CartService {
 		bookOnLoanRepository.flush();
 		bookRepository.flush();
 		emailService.sendMail(emailService.createNewEmail(loan));
+
+		// Xóa sạch giỏ hàng
+		booksQuantityInCartById.clear();
 	}
 
 }
