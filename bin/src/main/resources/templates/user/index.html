@@ -5,16 +5,131 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Trang chủ</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            position: relative;
+            box-sizing: border-box;
+            background-color: #ae3232;
+        }
+
+        html {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        #bt {
+            width: 20%;
+            height: 50px;
+            background-color: #000;
+            display: inline-block;
+        }
+
+        #bt .login-bt {
+            width: 33%;
+            float: left;
+            padding-left: 70px;
+            padding-top: 10px;
+        }
+
+        #bt .login-bt .login-button {
+            width: 100%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #1859c9;
+            cursor: pointer;
+        }
+
+        #bt .login-bt .login-button:hover {
+            background-color: #1859c9db;
+        }
+
+        #bt .cart-bt {
+            width: 30%;
+            float: right;
+            padding-right: 20px;
+            padding-top: 10px;
+        }
+
+        #bt .cart-bt .cart-button {
+            width: 100%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #1859c9;
+            cursor: pointer;
+        }
+
+        #bt .cart-bt .cart-button:hover {
+            background-color: #1859c9db;
+        }
+
+        #navbar {
+            background-color: #000;
+            width: 80%;
+            float: left;
+            height: 50px;
+            margin: 0 auto;
+        }
+
+        #navbar ul {
+            margin: 0 auto;
+        }
+
+        #navbar li {
+            display: inline-block;
+        }
+
+        #navbar li a {
+            color: #fff;
+            text-decoration: none;
+            line-height: 50px;
+            padding: 0 24px;
+            display: inline-block;
+        }
+
+        #navbar li:hover a {
+            color: #000;
+            background-color: #ccc;
+        }
+
+        #footer {
+            position: absolute;
+            text-align: center;
+            color: #fff;
+            padding-top: 20px;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #1E1E1E;
+        }
+    </style>
 </head>
 
 <body>
-    <a href="/login">
-        <button>Đăng nhập</button>
-    </a>
-    <a href="/user/cart">
-        <button>Giỏ hàng</button>
-    </a>
+    <div id="bt">
+        <div class="login-bt">
+            <a href="/login">
+                <button class="login-button">Đăng nhập</button>
+            </a>
+        </div>
+        <div class="cart-bt">
+            <a href="/user/cart">
+                <button class="cart-button">Giỏ hàng</button>
+            </a>
+        </div>
+    </div>
+
     <nav id="navbar">
         <ul>
             <li><a href="/user/index">Trang chủ</a></li>
@@ -22,6 +137,7 @@
             <li><a href="/user/contact">Liên hệ</a></li>
         </ul>
     </nav>
+
 </body>
 
 </html>

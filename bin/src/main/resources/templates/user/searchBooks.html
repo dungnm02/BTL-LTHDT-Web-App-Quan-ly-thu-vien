@@ -12,8 +12,8 @@
             padding: 0;
             margin: 0;
             height: 1200px;
-            position: relative;
             box-sizing: border-box;
+            position: relative;
         }
 
         html {
@@ -77,8 +77,8 @@
             background-color: #000;
             width: 80%;
             float: left;
-            z-index: 0;
             height: 50px;
+            margin: 0 auto;
         }
 
         #navbar ul {
@@ -102,6 +102,17 @@
             background-color: #ccc;
         }
 
+        .main-content,
+        table {
+            border: double;
+        }
+
+        .head {
+            padding: 5px 0;
+            text-align: center;
+            margin: 0 0;
+        }
+
         form {
             background-color: #FFCC66;
             padding: 20px 30px;
@@ -109,16 +120,16 @@
             margin: 30px auto;
         }
 
+        form label {
+            text-align: left;
+            font-weight: 600;
+        }
+
         form input[type=text] {
             width: 100%;
             padding: 10px 10px;
             margin: 8px 0;
             box-sizing: border-box;
-        }
-
-        form label {
-            text-align: left;
-            font-weight: 600;
         }
 
         form .search-button {
@@ -135,16 +146,6 @@
 
         form .search-button:hover {
             background-color: #0099FF;
-        }
-
-        #head {
-            padding-top: 10px;
-            text-align: center;
-            margin: 0 0;
-        }
-
-        #main-content {
-            border: double;
         }
 
         td,
@@ -168,7 +169,7 @@
             width: 100%;
             padding: 16px;
             padding: 1rem;
-            border: double;
+
         }
 
         .table__heading {
@@ -263,9 +264,8 @@
         <input type="text" class="form-control" name="keyword">
         <button class="search-button">Search</button>
     </form>
-
-    <div id="main-content">
-        <h1 id="head">Các đầu sách</h1>
+    <div class="main-content">
+        <h1 class="head">Kết quả tìm kiếm</h1>
         <table class="table">
             <tr>
                 <td class="table__heading">Tên sách</td>
@@ -294,8 +294,6 @@
         THƯ VIỆN HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG: Địa chỉ: Km10, Đường Nguyễn Trãi, Quận Hà Đông, Hà Nội, điện
         thoại: 024-66668888 (tổng đài). Email: contact.libary.ptit.hn@mail.com<br>
         Website: https://www.libary.ptit.hn.vn<br>
-    </div>
-
 </body>
 
 </html>

@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>Các đầu sách</title>
+    <title>Các đơn mượn</title>
     <style>
         body {
             padding: 0;
             margin: 0;
             height: 1200px;
-            position: relative;
             box-sizing: border-box;
+            position: relative;
         }
 
         html {
@@ -21,20 +21,17 @@
         }
 
         #bt {
-            width: 20%;
+            width: 10%;
             height: 50px;
             background-color: #000;
             display: inline-block;
         }
 
-        #bt .login-bt {
-            width: 33%;
-            float: left;
-            padding-left: 70px;
-            padding-top: 10px;
+        #bt .logout-bt {
+            padding: 10px 20px;
         }
 
-        #bt .login-bt .login-button {
+        #bt .logout-bt .logout-button {
             width: 100%;
             height: 30px;
             border: none;
@@ -46,36 +43,13 @@
             cursor: pointer;
         }
 
-        #bt .login-bt .login-button:hover {
-            background-color: #1859c9db;
-        }
-
-        #bt .cart-bt {
-            width: 30%;
-            float: right;
-            padding-right: 20px;
-            padding-top: 10px;
-        }
-
-        #bt .cart-bt .cart-button {
-            width: 100%;
-            height: 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 17px;
-            font-weight: 600;
-            color: #fff;
-            background-color: #1859c9;
-            cursor: pointer;
-        }
-
-        #bt .cart-bt .cart-button:hover {
+        #bt .logout-bt .logout-button:hover {
             background-color: #1859c9db;
         }
 
         #navbar {
             background-color: #000;
-            width: 80%;
+            width: 90%;
             float: left;
             z-index: 0;
             height: 50px;
@@ -102,27 +76,40 @@
             background-color: #ccc;
         }
 
-        form {
-            background-color: #FFCC66;
-            padding: 20px 30px;
-            width: 30%;
-            margin: 30px auto;
+        .loan_application {
+            border: double;
         }
 
-        form input[type=text] {
-            width: 100%;
+        .loan_application ul {
+            padding-left: 30%;
+        }
+
+        .head {
+            padding: 5px 0;
+            text-align: center;
+            margin: 0 0;
+        }
+
+        .list_loan li {
+            list-style-type: circle;
+        }
+
+        form input[type=number] {
+            width: 10%;
             padding: 10px 10px;
             margin: 8px 0;
             box-sizing: border-box;
         }
 
-        form label {
-            text-align: left;
-            font-weight: 600;
+        form .combo_box {
+            width: 10%;
+            padding: 10px 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
         }
 
-        form .search-button {
-            width: 20%;
+        form input[type=submit] {
+            width: 10%;
             height: 30px;
             border: none;
             border-radius: 5px;
@@ -133,17 +120,11 @@
             cursor: pointer;
         }
 
-        form .search-button:hover {
+        form input[type=submit]:hover {
             background-color: #0099FF;
         }
 
-        #head {
-            padding-top: 10px;
-            text-align: center;
-            margin: 0 0;
-        }
-
-        #main-content {
+        .request_element {
             border: double;
         }
 
@@ -168,7 +149,7 @@
             width: 100%;
             padding: 16px;
             padding: 1rem;
-            border: double;
+
         }
 
         .table__heading {
@@ -237,55 +218,99 @@
 
 <body>
     <div id="bt">
-        <div class="login-bt">
-            <a href="/login">
-                <button class="login-button">Đăng nhập</button>
-            </a>
-        </div>
-        <div class="cart-bt">
-            <a href="/user/cart">
-                <button class="cart-button">Giỏ hàng</button>
+        <div class="logout-bt">
+            <a href="/logout">
+                <button class="logout-button">Đăng xuất</button>
             </a>
         </div>
     </div>
 
     <nav id="navbar">
         <ul>
-            <li><a href="/user/index">Trang chủ</a></li>
-            <li><a href="/user/books">Các đầu sách</a></li>
-            <li><a href="/user/contact">Liên hệ</a></li>
+            <li><a href="/admin/index">Trang chủ</a></li>
+            <li><a href="/admin/books">Các đầu sách</a></li>
+            <li><a href="/admin/loans">Các đơn mượn</a></li>
+            <li><a href="/admin/addBook">Thêm đầu sách</a></li>
         </ul>
     </nav>
 
-    <!-- Thanh tìm kiếm -->
-    <form th:action="@{/user/books/search}">
-        <label for="keyword">Tìm kiếm:</label>
-        <input type="text" class="form-control" name="keyword">
-        <button class="search-button">Search</button>
-    </form>
+    <div class="loan_application">
+        <h1 class="head">Đơn mượn</h1>
+        <div th:if="${message != null}">
+            <p th:text="${message}"></p>
+        </div>
 
-    <div id="main-content">
-        <h1 id="head">Các đầu sách</h1>
+        <ul class="list_loan">
+            <li>Mã đơn mượn:
+                <p th:text="${loan.id}"></p>
+            </li>
+            <li>Họ và tên:
+                <p th:text="${loan.loanerName}"></p>
+            </li>
+            <li>Email:
+                <p th:text="${loan.loanerEmail}"></p>
+            </li>
+            <li>Số điện thoại:
+                <p th:text="${loan.loanerTel}"></p>
+            </li>
+
+            <div th:if="${loan.borrowDate != null}">
+                <li>Ngày mượn:
+                    <p th:text="${loan.borrowDate}"></p>
+                </li>
+            </div>
+
+            <div th:if="${loan.expireDate != null}">
+                <li>Ngày hết hạn:
+                    <p th:text="${loan.expireDate}"></p>
+                </li>
+            </div>
+
+            <div th:if="${loan.returnDate != null}">
+                <li>Ngày trả:
+                    <p th:text="${loan.returnDate}"></p>
+                </li>
+            </div>
+
+            <div th:if="${loan.borrowDate != null } and ${loan.status != 'EXPIRED'} and ${loan.status != 'COMPLETED'}">
+                <li>Cập nhật thời hạn:
+                    <form th:action="@{|/admin/updateExpireDate/${loan.id}|}" method="post">
+                        <input type="number" min="0" max="100" th:value="*{dateTillExpire}" name="days" required>
+                        <input type="submit" value="Xác nhận" />
+                    </form>
+                </li>
+            </div>
+
+            <div th:if="${loan.status != 'EXPIRED'} and ${loan.status != 'COMPLETED'} and ${loan.status != 'CANCELLED'}">
+                <li>Cập nhật:
+                    <form th:action="@{|/admin/updateLoan/${id}|}" method="post" th:object="${loan}">
+                        <select class="combo_box" th:field="*{status}">
+                            <option value="${loan.status}" th:text="${loan.status}"></option>
+                            <option th:each="ele : ${nextStatus}" th:value="${ele}" th:text="${ele}"></option>
+                        </select>
+                        <input type="submit" value="Xác nhận" />
+                    </form>
+                </li>
+            </div>
+        </ul>
+    </div>
+
+    <div class="request_element">
+        <h2 class="head">Yêu cầu</h2>
         <table class="table">
             <tr>
-                <td class="table__heading">Tên sách</td>
+                <td class="table__heading">Mã đầu sách</td>
+                <td class="table__heading">Tên đầu sách</td>
                 <td class="table__heading">Tên tác giả</td>
-                <td class="table__heading">Thể loại</td>
                 <td class="table__heading">Năm phát hành</td>
-                <td class="table__heading">Số lượng còn lại</td>
-                <td></td>
+                <td class="table__heading">Số lượng</td>
             </tr>
-            <tr class="table__row" th:each="book : ${books}">
-                <td class="table__content" th:text="${book.title}"></td>
-                <td class="table__content" th:text="${book.authorName}"></td>
-                <td class="table__content" th:text="${book.category}"></td>
-                <td class="table__content" th:text="${book.publishedYear}"></td>
-                <td class="table__content" th:text="${book.available}"></td>
-                <td>
-                    <a th:href="@{|/user/cart/add/${book.id}|}">
-                        <button class="edit-button">Thêm vào giỏ hàng</button>
-                    </a>
-                </td>
+            <tr class="table__row" th:each="bookOnLoan, iterStat: ${booksOnLoan}">
+                <td class="table__content" th:text="${books[iterStat.index].id}"></td>
+                <td class="table__content" th:text="${books[iterStat.index].title}"></td>
+                <td class="table__content" th:text="${books[iterStat.index].authorName}"></td>
+                <td class="table__content" th:text="${books[iterStat.index].publishedYear}"></td>
+                <td class="table__content" th:text="${bookOnLoan.quantity}"></td>
             </tr>
         </table>
     </div>

@@ -129,6 +129,7 @@ public class EmailServiceImpl implements EmailService {
 		String loanDetails = "";
 		loanDetails += "-------------------------------------------------------------------------------" + "\n";
 		loanDetails += "Thông tin đơn mượn" + "\n";
+		loanDetails += "Mã đơn mượn: " + loan.getId() + "\n";
 		loanDetails += "Họ và tên: " + loan.getLoanerName() + "\n";
 		loanDetails += "Email: " + loan.getLoanerEmail() + "\n";
 		loanDetails += "Số điện thoại: " + loan.getLoanerTel() + "\n";

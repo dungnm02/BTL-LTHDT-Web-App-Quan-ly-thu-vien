@@ -1,23 +1,28 @@
-Kiến trúc MVC:
------------- Model -> ??? -> 1 người. (Minh) 	
-	Nhiệm vụ:
-		=> Xây dựng các Entity(Giống 1 Class trong Java - Được kết nối với 1 CSDL). Làm sao để ae làm Controller thao tác, xây dựng các method cho nó
-		=> Tôi nghĩ hiện đang có 2 Entity: Sách và Đơn mượn
-			Sách -> Id, Tên sách, Tên tác giả, Thể loại, Năm phát hành và Ảnh (nếu có thể)
-			Đơn mượn -> Id, Sách(???), Tên người mượn, Sđt, Email, Địa chỉ, Trạng thái.
- 		=> Tạo dữ liệu mẫu.
-
------------- View -> Thymeleaf + HTML/CSS -> 1 Người. (Ngọc) 
-
-	Nhiệm vụ:
-		=> Hiển thị các dữ liệu
-		=> Tạo form để người dùng gửi thông tin,.....
-
------------- Controller -> ??? -> 2 người (Dũng, Cường)
-	
-	Nhiệm vụ:
-		=> Xử lý các tác vụ:
-			- Đăng nhập
-			- Tìm kiếm, Sắp xếp thông tin (???)
-			- Thêm/ Xóa/ Cập nhật các thông tin về Sách/ Đơn mượn trên CSDL
-			
+Setup CSDL: Microsoft SQL Server Management Studio 18:
+  
+  - Tạo thông tin đăng nhập:
+    - Security/Logins -> New Login:
+      -> Login name = demo -> SQL Authentication -> password = demotest -> OK
+  
+  - Tạo Database tên Library
+    - Security/Users -> New User:
+      -> SQL user with login -> User name = demo, Login name = demo -> OK
+    - Security/Users/demo -> Properties
+      -> Owned Schemas -> Chọn tất cả trừ db_denydatareader, db_denydatawriter, guest
+      -> Memberships   -> Chọn tất cả trừ db_denydatareader, db_denydatawriter
+  
+  ->Có thể bị bắt đổi mật khẩu: -> Đổi ở Security/Logins -> Cập nhật:
+    Vào /BTL-LTHDT-Web-App-Quan-ly-thu-vien-main/src/main/resources/application.properties:
+    spring.datasource.username=demo
+    spring.datasource.password=password mới
+  
+Setup Mail: Gmail
+  
+  - Tài khoản Google: https://myaccount.google.com/
+    -> 2-Step Verification -> On
+    -> App Password -> Select App = (Custom Name)LMS, Device = Window Computer -> Lấy được password
+    -> Vào /BTL-LTHDT-Web-App-Quan-ly-thu-vien-main/src/main/resources/application.properties:
+    spring.mail.username= tên email không có hậu tố.
+    spring.mail.password= password ở trên.
+    
+  ->Có thể bị Google chặn ngẫu nhiên do nghi ngờ là bot?

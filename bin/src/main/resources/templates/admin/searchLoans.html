@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>Thêm sách</title>
+    <title>Các đơn mượn</title>
     <style>
         body {
             padding: 0;
             margin: 0;
-            height: 100%;
+            height: 1000px;
             box-sizing: border-box;
+            position: relative;
         }
 
         html {
@@ -75,11 +76,8 @@
             background-color: #ccc;
         }
 
-        #head {
+        .head {
             padding: 5px 0;
-        }
-
-        #head h1 {
             text-align: center;
             margin: 0 0;
         }
@@ -91,26 +89,20 @@
             margin: 0 auto;
         }
 
-        form div {
+        form label {
             text-align: left;
             font-weight: 600;
         }
 
-        form div input[type=text] {
+        form input[type=number] {
             width: 100%;
             padding: 10px 10px;
             margin: 8px 0;
             box-sizing: border-box;
         }
 
-        form div input[type=number] {
-            width: 100%;
-            padding: 10px 10px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
 
-        form input[type=submit] {
+        form .search-button {
             width: 20%;
             height: 30px;
             border: none;
@@ -122,10 +114,88 @@
             cursor: pointer;
         }
 
-        form input[type=submit]:hover {
+        form .search-button:hover {
             background-color: #0099FF;
         }
 
+        .main-content {
+            border: double;
+        }
+
+        td,
+        th {
+            padding: 8px;
+            padding: .5rem;
+        }
+
+        th {
+            text-align: left;
+            font-weight: 300;
+            font-size: 20px;
+            font-size: 1.25rem;
+        }
+
+        td {
+            font-family: 'Avenir Next', 'Segoe UI', 'Lucida Grande', sans-serif;
+        }
+
+        .table {
+            width: 100%;
+            padding: 16px;
+            padding: 1rem;
+
+        }
+
+        .table__heading {
+            border-bottom: 2px solid #FFC842;
+        }
+
+        @media (max-width: 32rem) {
+            .table__heading {
+                display: none;
+            }
+
+            .table__content {
+                display: block;
+                padding: .5rem 0;
+            }
+
+            .table__row {
+                margin: .25rem 1rem;
+                padding: .5rem 0;
+                display: block;
+                border-bottom: 2px solid #FFC842;
+            }
+
+            .table__content:before {
+                content: attr(data-heading);
+                display: inline-block;
+                width: 5rem;
+                margin-right: .5rem;
+                color: #999;
+                font-size: .75rem;
+                font-weight: 700;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+        }
+
+        .table .table__row .edit-button {
+            width: 50%;
+            height: 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #00CC66;
+            cursor: pointer;
+        }
+
+        .table .table__row .edit-button:hover {
+            background-color: #0099FF;
+        }
 
         #footer {
             position: absolute;
@@ -149,6 +219,7 @@
         </div>
     </div>
 
+
     <nav id="navbar">
         <ul>
             <li><a href="/admin/index">Trang chủ</a></li>
@@ -158,33 +229,39 @@
         </ul>
     </nav>
 
-    <div id="head">
-        <h1>Thêm đầu sách</h1>
-    </div>
-
-    <form th:action="@{/admin/saveNewBook}" method="post" th:object="${book}">
-        <div>Tên đầu sách
-            <input type="text" th:field="*{title}" required />
-        </div>
-        <br>
-        <div>Tên tác giả
-            <input type="text" th:field="*{authorName}" required />
-        </div>
-        <br>
-        <div>Năm phát hành
-            <input type="number" min="1000" max="2099" step="1" th:field="*{publishedYear}" required />
-        </div>
-        <br>
-        <div>Thể loại
-            <input type="text" th:field="*{category}" required />
-        </div>
-        <br>
-        <div>Số lượng còn lại
-            <input type="number" th:field="*{available}" required />
-        </div>
-        <br>
-        <input type="submit" value="Save" />
+    <form th:action="@{/admin/loans/search}">
+        <label for="keyword">Tìm kiếm bằng Id:</label>
+        <input type="number" class="form-control" name="keyword">
+        <button class="search-button">Tìm kiếm</button>
     </form>
+
+    <div class="main-content">
+        <h1 class="head">Các đơn mượn</h1>
+        <table class="table">
+            <tr>
+                <td class="table__heading">Mã đơn</td>
+                <td class="table__heading">Email</td>
+                <td class="table__heading">Số lượng</td>
+                <td class="table__heading">Trạng thái</td>
+            </tr>
+
+            <div th:if="${message != null}">
+                <p th:text="${message}"></p>
+            </div>
+
+            <tr class="table__row" th:each="loan : ${loans}">
+                <td class="table__content" th:text="${loan.id}"></td>
+                <td class="table__content" th:text="${loan.loanerEmail}"></td>
+                <td class="table__content" th:text="${loan.booksOnLoan.size()}"></td>
+                <td class="table__content" th:text="${loan.status}"></td>
+                <td>
+                    <a th:href="@{|/admin/loans/${loan.id}|}">
+                        <button class="edit-button">Xem thông tin</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <div id="footer">
         THƯ VIỆN HỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG: Địa chỉ: Km10, Đường Nguyễn Trãi, Quận Hà Đông, Hà Nội, điện

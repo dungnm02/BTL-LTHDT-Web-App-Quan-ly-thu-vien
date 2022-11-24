@@ -140,7 +140,7 @@ public class AdminController {
 			model.addAttribute("nextStatus", new ArrayList<>(Arrays.asList("INPROGRESS", "CANCEL")));
 
 		} else if (loan.getStatus().equals("INPROGRESS")) {
-			model.addAttribute("nextStatus", new ArrayList<>(Arrays.asList("COMPLETE", "CANCEL")));
+			model.addAttribute("nextStatus", new ArrayList<>(Arrays.asList("COMPLETE")));
 
 		} else {
 			model.addAttribute("nextStatus", new ArrayList<>());
@@ -157,7 +157,7 @@ public class AdminController {
 			currLoan.setStatus("ACCEPTED");
 			emailService.sendMail(emailService.createAcceptEmail(currLoan));
 
-		} else if (loan.getStatus().equals("INPROGRESS")) {
+		} else if (loan.getStatus().equals("INPROGRESS") && loan.getBorrowDate() == null) {
 			// Đơn mượn đang thực hiện -> Ngày mượn sách = Ngày hôm nay
 			// Đơn mượn đang thực hiện -> Ngày hết hạn = Ngày hôm nay + 14 ngày
 			currLoan.setStatus("INPROGRESS");
@@ -178,8 +178,12 @@ public class AdminController {
 
 			emailService.sendMail(emailService.createCompleteEmail(currLoan));
 
-		} else {
+		} else if (loan.getStatus().equals("CANCEL")) {
 			currLoan.setStatus("CANCELLED");
+			//Đơn mượn bị hủy khi chưa lấy sách == Sách được trả lại thư viện.
+			if (loan.getBorrowDate() == null) {
+				loanService.completeLoan(currLoan);
+			} 
 			emailService.sendMail(emailService.createCancelEmail(currLoan));
 		}
 
