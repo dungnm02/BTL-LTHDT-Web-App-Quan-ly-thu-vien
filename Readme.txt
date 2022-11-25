@@ -17,7 +17,7 @@ Setup CSDL: Microsoft SQL Server Management Studio 18:
     spring.datasource.password=password mới
   
 Setup Mail: Gmail
-  
+  https://www.geeksforgeeks.org/spring-boot-sending-email-via-smtp/
   - Tài khoản Google: https://myaccount.google.com/
     -> 2-Step Verification -> On
     -> App Password -> Select App = (Custom Name)LMS, Device = Window Computer -> Lấy được password
